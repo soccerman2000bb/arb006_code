@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grandma's Bakery Clicker Game Website</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font-family: "Sitka Heading";
+                vertical-align: baseline;
+            }
+            #wrapper {
+                background-color: #f0d7a7;
+            }
+            #centerTile {
+                background-color: white;
+                width: 50%;
+                min-width: 400px;
+                height: auto;
+                min-height: 800px;
+                padding-left: 25px;
+                padding-right: 25px;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                margin-left: 20%;
+                margin-right: 20%;
+                align-content: center;
+            }
+            /*.autoBatch {
+                align-content: center;
+            }
+            .perBatch {
+                align-content: center;
+            }*/
+            .upgrades {
+                margin-top: 5%;
+                marign-left: 5%;
+                margin-right: 5%;
+                margin-bottom: 5%;
+                padding-left: 5%;
+                padding-bottom: 25px;
+                color: white;
+                font-size: 1.1em;
+                min-width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                align-content: center;
+                align-items: center;
+                clear: both;
+                text-decoration: none;
+            }
+
+            .cookieMaker a {
+                background-color: #894e3f;
+                border-style: solid;
+                border-color: black;
+                color: white;
+                text-shadow: 2px 2px 5px black;
+                height: 175px;
+                width: 250px;
+                padding: .25rem;
+                margin-right: 5%;
+                float: left;
+                text-decoration: none;
+            }
+
+            .cookieBatch a {
+                background-color: #894e3f;
+                border-style: solid;
+                border-color: black;
+                color: white;
+                text-shadow: 2px 2px 5px black;
+                height: 175px;
+                width: 250px;
+                padding: .25rem;
+                margin-right: 5%;
+                float: left;
+                text-decoration: none;
+            }
+
+            #title {
+                font-family: "Franklin Gothic Heavy";
+                font-size: 1em;
+                margin-top: 0px;
+                padding-top: 25px;
+                background-color: #f0d7a7;
+                margin-left: 40%;
+            }
+        </style>
+        <script>
+            var userName = prompt("Hey nice to meet you! What is your name?", "");
+            alert("Hey " + userName + "! Welcome to Grandma's Bakery! Press OK to begin!"); //opening alert
+            var cookiecount = 0;
+            var perClick = 1;
+            var autoClick = 0;
+        
+            function update() { //update function for variables and user feedback
+                document.getElementById('text').value = cookiecount;
+                document.getElementById('amountAutoClick').innerHTML = "You own " + autoClick + " Cookie Machines";
+                document.getElementById('costAutoClick').innerHTML = "The price is " + ((autoClick + 1)*25) + " Cookies";
+                document.getElementById('amountPerClick').innerHTML = "You make " + perClick + " Cookies per Batch";
+                document.getElementById('costPerClick').innerHTML = "The price is " + ((perClick)*250) + " Cookies";
+            }
+
+            function timer() {
+                cookiecount = cookiecount + autoClick;
+                update();
+            }
+            setInterval(timer, 1000) //1000 milliseconds or 1 second for the autoclicker
+        </script>
+    </head>
+    <body>
+        <div id = "wrapper">
+            <div id = "title">
+                <h1>Grandma's Bakery!</h1>
+            </div>
+            <div id = "centerTile">
+                <a href="#" onclick="add()"><img class="currentCookie" src="snickerdoodle_cookie.jpg" width = 300px height = 300px></a>
+                <br>
+                You have:
+                <input type="text" id="text" disabled style = text-align:center>
+                Cookies.
+                <br>
+
+                <div class="upgrades">
+                    <div class="cookieMaker">
+                        <a href="#" onClick="buyAutoClick()">
+                            <h3>Buy an Automatic Cookie Maker!</h3>
+                            <!--<button><a href="#" onClick="buyAutoClick()"><img class="autoBatch" src="cookies_autoClick.jpg" width = 50px height = 50px></a></button> -->
+                            <p id="costAutoClick"> Cookies</p>
+                            <p id="amountAutoClick">You own 0 Auto Clickers</p>
+                        </a>
+                    </div>
+                    <div class="cookieBatch">
+                        <a href="#" onClick="buyBatchIncrease()">
+                            <h3>Want more cookies per batch?</h3>
+                            <!--<button><a href="#" onClick="buyBatchIncrease()"><img class="perBatch" src="cookies_per_click.jpg" width = 50px height = 50px></a></button> -->
+                            <p id="costPerClick"> Cookies</p>
+                            <p id="amountPerClick">You make 1 Cookie per Batch</p>
+                        </a>
+                    </div>
+
+                <br><br>
+            <!-- <p>Want a new cookie?</p>
+            <br>
+                <div id = "cookieSkins">
+                    <button><a href="#" onClick="changeToOR()"><img src="cookies_autoClick.jpg" width = 50px height = 50px></a></button>
+                </div> -->
+                </div>
+                <button><a href="#" onClick="autoClick = 0, perClick = 1, cookiecount = 0"><img class="clearFunction" src="clear_button.jpg" width = 50px height = 50px></a></button>
+            </div>
+        </div>
+        <script>
+            function add() {
+                cookiecount = cookiecount + perClick;
+                update();
+            }
+            function buyAutoClick() {
+                if (cookiecount >= ((autoClick + 1)*25)) {
+                    cookiecount = cookiecount - ((autoClick + 1)*25);
+                    autoClick = autoClick + 1;
+                    update();
+                }
+            }
+            function buyBatchIncrease() {
+                if (cookiecount >= ((perClick)*250)) {
+                    cookiecount = cookiecount - ((perClick)*250);
+                    perClick = perClick + 1;
+                    update();
+                }
+            }
+            /*function changeCookie() {
+                var currentCookie = $(".currentCookie");
+                var newCookie = "oatmealraisin_cookie.jpg";
+                currentCookie.attr("src", newCookie);
+                update();
+            }*/
+        </script>
+    </body>
+</html>
